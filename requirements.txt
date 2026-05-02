@@ -1,0 +1,49 @@
+# Core API framework
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+
+# LLM and Agent framework (required)
+langchain>=0.1.0
+langchain-openai>=0.0.5
+langchain-community>=0.0.10
+langchain-google-genai>=1.0.0
+langchain-groq>=0.1.1
+
+# STT - Primary: Whisper (free, local), Fallback: SpeechRecognition
+openai-whisper>=20231117
+SpeechRecognition>=3.10.0
+
+# TTS - Primary: Edge TTS (free), Fallback: gTTS (free)
+edge-tts>=6.1.9
+gTTS>=2.5.0
+
+# Vector stores and embeddings (for RAG) - Required
+chromadb>=0.4.18
+sentence-transformers>=2.2.2
+
+# HTTP client and file handling
+httpx>=0.25.0
+python-multipart>=0.0.6
+aiofiles>=23.2.1
+
+# Environment and configuration
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Audio processing utilities
+pydub>=0.25.1
+soundfile>=0.12.1
+
+# Async support
+aiohttp>=3.9.0
+
+# Streamlit UI dependencies
+streamlit>=1.34.0
+sounddevice>=0.4.6
+numpy>=1.24.0
+requests>=2.31.0
+
+# Development dependencies
+pytest>=7.4.3
+pytest-asyncio>=0.21.1
