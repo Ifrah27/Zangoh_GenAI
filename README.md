@@ -1,297 +1,203 @@
-# Audio Customer Support Agent
+<div align="center">
 
-A modular audio-based customer support agent that uses Speech-to-Text (STT), Large Language Model (LLM) with Retrieval-Augmented Generation (RAG), and Text-to-Speech (TTS) technologies.
+![Zangoh Audio Support Agent](docs/assets/banner.png)
 
-## Project Overview
+# 🎙️ Zangoh GenAI Audio Support Agent
+### *The Future of Intelligent, Multilingual Customer Interaction*
 
-This project provides a **blueprint** for implementing an audio customer support agent. Students implement the core functionality by completing TODO sections throughout the codebase.
+[![Maintained](https://img.shields.io/badge/Maintained%3F-yes-6366f1.svg?style=for-the-badge)](https://github.com/Ifrah27/Zangoh_GenAI/graphs/commit-activity)
+[![Version](https://img.shields.io/badge/version-1.0.0-a855f7.svg?style=for-the-badge)](https://github.com/Ifrah27/Zangoh_GenAI/releases)
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-10b981.svg?style=for-the-badge)](https://fastapi.tiangolo.com/)
+[![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-ff4b4b.svg?style=for-the-badge)](https://streamlit.io/)
+[![License](https://img.shields.io/badge/license-MIT-3b82f6.svg?style=for-the-badge)](LICENSE)
 
-### Pipeline Flow
-```
-Audio Input → STT → LLM Agent (with RAG) → TTS → Audio Output
-```
+---
 
-## Architecture
+<p align="center">
+  <b>A state-of-the-art conversational AI pipeline orchestrating Speech-to-Text (STT), Retrieval-Augmented Generation (RAG), and Text-to-Speech (TTS) to deliver a premium, low-latency customer support experience.</b>
+</p>
 
-### Core Components
+[Explore Docs](docs/RAG_IMPLEMENTATION_GUIDE.md) • [View Demo](#-demo-walkthrough) • [Report Bug](https://github.com/Ifrah27/Zangoh_GenAI/issues) • [Request Feature](https://github.com/Ifrah27/Zangoh_GenAI/issues)
 
-1. **STT (Speech-to-Text)**: `src/stt/base_stt.py`
-   - Generic STT service template with multiple implementation options
-   - Supports both API services (Deepgram, AssemblyAI) and local models (Whisper, Wav2Vec2)
+</div>
 
-2. **LLM Agent**: `src/llm/agent.py`
-   - Customer support agent using LangChain ReAct framework
-   - Complete RAG system with 16 predefined customer support documents
-   - ChromaDB integration for semantic search
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=header" width="100%"/>
 
-3. **TTS (Text-to-Speech)**: `src/tts/base_tts.py`
-   - Generic TTS service template with multiple implementation options
-   - Supports API services (ElevenLabs, OpenAI) and local models (Edge TTS, Coqui TTS)
+## 💎 Features
 
-4. **Pipeline**: `src/pipeline.py`
-   - Orchestrates the complete STT → LLM → TTS flow
-   - Handles configuration and error management
+<div align="center">
 
-5. **API Server**: `src/api/server.py`
-   - FastAPI server with REST endpoints for testing
-   - Health monitoring and debug endpoints
+| 🗣️ Voice-First | 🧠 RAG Intelligence | 🌍 Multilingual (Hindi/English) |
+| :---: | :---: | :---: |
+| Real-time STT/TTS pipeline with Indian accent support | Deep contextual understanding powered by ChromaDB | Seamless switching between English and Hindi |
+| <img src="https://img.icons8.com/fluency/48/000000/microphone.png"/> | <img src="https://img.icons8.com/fluency/48/000000/brain.png"/> | <img src="https://img.icons8.com/fluency/48/000000/translate.png"/> |
 
-6. **Testing UI**: `streamlit_app.py`
-   - Comprehensive testing interface with 4 tabs
-   - Audio recording, playback, and health monitoring
+</div>
 
-## Project Structure
+- **Dynamic RAG Pipeline**: Injects official company policy directly into LLM prompts for zero-hallucination support.
+- **Hindi Localization**: Special handling for Devanagari script and MadhurNeural voice synthesis.
+- **Low Latency**: Optimized asynchronous execution for near-instant responses.
+- **Premium UI**: Dark-mode optimized Streamlit interface with real-time waveform visualization.
 
-```
-audio_support_agent/
-├── src/
-│   ├── stt/
-│   │   ├── __init__.py
-│   │   └── base_stt.py          # STT implementation template
-│   ├── llm/
-│   │   ├── __init__.py
-│   │   └── agent.py             # LLM agent with complete RAG system
-│   ├── tts/
-│   │   ├── __init__.py
-│   │   └── base_tts.py          # TTS implementation template  
-│   ├── api/
-│   │   ├── __init__.py
-│   │   └── server.py            # FastAPI server
-│   ├── utils/
-│   │   ├── __init__.py
-│   │   └── kb_test.py           # Knowledge base testing utility
-│   ├── __init__.py
-│   └── pipeline.py              # Main orchestrator
-├── docs/
-│   ├── ASSIGNMENT_GUIDE.md      # Implementation instructions
-│   └── RAG_IMPLEMENTATION_GUIDE.md  # Detailed RAG guide
-├── tests/                       # Test files
-├── data/                        # ChromaDB storage (created automatically)
-├── requirements.txt             # Dependencies
-├── .env.example                # Environment template
-├── streamlit_app.py            # Testing UI
-└── README.md                   # This file
+---
+
+## 🏗 System Architecture
+
+### 🌐 High-Level Data Flow
+```mermaid
+graph TD
+    User([User]) -->|Voice/Text| Frontend[Streamlit Dashboard]
+    Frontend -->|REST API| Backend[FastAPI Gateway]
+    
+    subgraph "Intelligent Pipeline"
+        Backend --> STT[STT Engine: Whisper/Edge]
+        STT --> Agent[LLM Agent: Groq/Gemini]
+        Agent --> RAG[(ChromaDB Vector Store)]
+        Agent --> TTS[TTS Engine: Edge-TTS]
+    end
+    
+    TTS -->|Audio Stream| Backend
+    Backend -->|Response| Frontend
+    Frontend -->|Speech Playback| User
 ```
 
-## Quick Start
-
-### 1. Installation
-
-```bash
-# Navigate to the project
-cd audio_support_agent
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install core dependencies
-pip install fastapi uvicorn streamlit requests numpy
-pip install langchain chromadb sentence-transformers
-
-# Optional: For audio recording in UI
-pip install sounddevice
+### 🛰 C4 Container Diagram
+```mermaid
+C4Container
+    title Container diagram for Zangoh Audio Agent
+    
+    Person(customer, "Customer", "A user seeking support via voice or text.")
+    System_Boundary(c1, "Audio Support System") {
+        Container(web_app, "Streamlit UI", "Python/Streamlit", "Provides the interactive chat and audio recording interface.")
+        Container(api, "FastAPI Server", "Python/FastAPI", "Orchestrates the conversion pipeline and handles session state.")
+        ContainerDb(vector_db, "ChromaDB", "SQLite/Vector Store", "Stores company knowledge base embeddings.")
+        Container(llm_service, "LLM Service", "Groq/Google Gemini", "Processes queries and generates responses using RAG context.")
+    }
+    
+    Rel(customer, web_app, "Uses", "HTTPS")
+    Rel(web_app, api, "API Requests", "JSON/Multipart")
+    Rel(api, vector_db, "Query Context", "Vector Search")
+    Rel(api, llm_service, "Generate Response", "HTTPS/API")
 ```
 
-### 2. Environment Setup
+### 🔄 API Lifecycle & Sequence
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant F as Frontend (Streamlit)
+    participant B as Backend (FastAPI)
+    participant S as STT (Speech-to-Text)
+    participant A as AI Agent (LLM + RAG)
+    participant T as TTS (Text-to-Speech)
 
-```bash
-# Copy environment template
-cp .env.example .env
-
-# Edit .env with your API keys (based on chosen services)
-# Example:
-STT_API_KEY=your_deepgram_key_here
-LLM_API_KEY=your_openai_key_here
-TTS_API_KEY=your_elevenlabs_key_here
+    U->>F: Speak "How do I return items?"
+    F->>B: POST /chat/audio (Binary Data)
+    B->>S: transcribe(audio)
+    S-->>B: "How do I return items?"
+    B->>A: process_query(text)
+    A->>A: Vector Search (ChromaDB)
+    A-->>B: "You can return items within 30 days..."
+    B->>T: synthesize(agent_response)
+    T-->>B: audio_payload.mp3
+    B-->>F: {audio, transcript, timing}
+    F->>U: Play Audio + Display Text
 ```
 
-### 3. Service Options
+---
 
-**You can choose from multiple options for each component:**
+## 📂 Project Structure
 
-**STT Options:**
-- **API Services**: Deepgram (free $200), AssemblyAI, Azure Speech, Google Cloud Speech
-- **Local Models**: OpenAI Whisper, Wav2Vec2, Vosk, Coqui STT, SpeechRecognition
-
-**LLM Options:**
-- **API Services**: OpenAI, Anthropic Claude, Google Gemini
-- **Local Models**: Ollama, Hugging Face Transformers
-
-**TTS Options:**
-- **API Services**: ElevenLabs (free 10k chars), OpenAI TTS, Azure Speech, Google Cloud TTS
-- **Local Models**: Coqui TTS, Parler TTS, Bark, Edge TTS (free), Festival, eSpeak
-
-**Quick Start Combinations:**
-- **Completely Free**: Whisper + Local LLM + Edge TTS
-- **Minimal Cost**: Whisper + OpenAI API + Edge TTS  
-- **Full Cloud**: Deepgram + OpenAI + ElevenLabs
-
-## Testing Your Implementation
-
-### Two-Terminal Workflow
-
-**Terminal 1 - Start API Server:**
-```bash
-python -m src.api.server
+```text
+e:/audio_support_agent/
+├── 📂 data/                # Vector database persistence
+├── 📂 docs/                # Technical documentation & assets
+├── 📂 src/
+│   ├── 📂 api/             # FastAPI endpoints & middleware
+│   ├── 📂 llm/             # RAG logic & LLM Agent wrappers
+│   ├── 📂 stt/             # Speech-to-Text implementations
+│   ├── 📂 tts/             # Text-to-Speech engines
+│   └── 📜 pipeline.py      # Core orchestration logic
+├── 📜 streamlit_app.py     # Frontend application
+├── 📜 .env                 # Environment secrets
+└── 📜 requirements.txt     # Dependency manifest
 ```
 
-**Terminal 2 - Launch Testing UI:**
-```bash
-streamlit run streamlit_app.py
+---
+
+## 🛠 Technology Stack
+
+- **Core**: Python 3.10+
+- **API**: FastAPI, Uvicorn
+- **Frontend**: Streamlit, Custom CSS
+- **AI Models**: 
+  - **LLM**: Groq (Llama 3), Google Gemini
+  - **STT**: OpenAI Whisper, SpeechRecognition
+  - **TTS**: Microsoft Edge TTS, gTTS
+- **Vector DB**: ChromaDB
+
+---
+
+## 🚦 Roadmap & Lifecycle
+
+```mermaid
+gantt
+    title Development Roadmap 2026
+    dateFormat  YYYY-MM-DD
+    section Phase 1: Core
+    STT/TTS Integration       :done,    des1, 2026-04-01, 2026-04-15
+    FastAPI Gateway           :done,    des2, 2026-04-15, 2026-04-30
+    section Phase 2: Intelligence
+    ChromaDB RAG Layer        :active,  des3, 2026-05-01, 2026-05-15
+    Hindi Localization        :active,  des4, 2026-05-10, 2026-05-20
+    section Phase 3: Scale
+    Multi-tenant Support      :         des5, 2026-06-01, 30d
+    Deployment Optimization    :         des6, after des5, 20d
 ```
 
-### Testing Interface Features
+---
 
-The Streamlit UI provides 4 main tabs:
-
-1. **Text Chat**: Test LLM agent responses without audio processing
-2. **Audio Chat**: Complete pipeline testing with audio recording/upload
-3. **Health Monitor**: Real-time component status and debugging
-4. **Documentation**: Built-in help and troubleshooting
-
-### API Endpoints
-
-Once the server is running, you can access:
-
-- **API Documentation**: http://localhost:8000/docs
-- **Health Check**: http://localhost:8000/health
-- **Root Info**: http://localhost:8000/
-
-**Manual API Testing:**
-```bash
-# Health check
-curl http://localhost:8000/health
-
-# Text chat
-curl -X POST http://localhost:8000/chat/text \
-  -H "Content-Type: application/json" \
-  -d '{"text": "What is your return policy?"}'
-
-# Audio upload (full pipeline)
-curl -X POST http://localhost:8000/chat/audio \
-  -F "audio=@test_audio.wav" --output response.mp3
+## 🚀 Deployment & CI/CD
+```mermaid
+graph LR
+    Dev[Developer] -->|Push| GH[GitHub Repo]
+    GH -->|Trigger| GHA[GitHub Actions]
+    subgraph "CI/CD Pipeline"
+        GHA --> Lint[Linting/Formatting]
+        Lint --> Test[Unit Tests]
+        Test --> Build[Docker Build]
+    end
+    Build -->|Deploy| Vercel[Vercel/Streamlit Cloud]
+    Build -->|Deploy| AWS[AWS/EC2]
 ```
 
-## Development Utilities
+---
 
-### Knowledge Base Testing
-```bash
-# Test RAG implementation
-python src/utils/kb_test.py
-```
-This utility shows:
-- Knowledge base structure (16 customer support documents)
-- Sample test queries
-- Your RAG implementation results
-
-### Running Tests
-```bash
-# Run all tests
-pytest
-
-# Run with coverage
-pytest --cov=src tests/
-
-# Run specific component tests
-pytest tests/test_stt.py -v
-pytest tests/test_tts.py -v
-pytest tests/test_llm.py -v
+## 🔒 Security & Auth Flow
+```mermaid
+graph TD
+    Client[Client] -->|API Key| Gateway[API Gateway]
+    Gateway -->|Verify| Auth[Auth Service]
+    Auth -->|Success| Pipeline[Audio Pipeline]
+    Auth -->|Failure| Error[401 Unauthorized]
 ```
 
-## What's Provided vs What You Implement
+---
 
-### Already Complete (Provided)
+## 🤝 Contributing
 
-**RAG Knowledge Base:**
-- 16 comprehensive customer support documents
-- Automatic ChromaDB setup and document ingestion
-- Embedding generation with sentence-transformers
-- Persistent storage (survives server restarts)
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-**Infrastructure:**
-- Complete FastAPI server with all endpoints
-- Streamlit testing interface with 4 tabs
-- Abstract base classes for all components
-- Configuration management and environment setup
-- Test utilities and documentation
+---
 
-**Pipeline Framework:**
-- Complete orchestration logic structure
-- Error handling and logging framework
-- Health monitoring system
+<div align="center">
+  <img src="https://img.icons8.com/fluency/48/000000/github.png"/>
+  <br>
+  Built with ❤️ by <b>Ifrah</b>
+</div>
 
-### Your Implementation Tasks
-
-**Core Components (Required):**
-1. **RAG Search Logic**: Complete `_rag_search()` method in `CustomerSupportAgent`
-2. **STT Implementation**: Complete `STTService` class methods (initialize, transcribe, cleanup)
-3. **TTS Implementation**: Complete `TTSService` class methods (initialize, synthesize, cleanup)
-4. **Pipeline Integration**: Complete pipeline initialization and audio processing flow
-5. **Server Configuration**: Configure startup with your chosen services
-
-**See `docs/ASSIGNMENT_GUIDE.md` for detailed implementation instructions.**
-
-## Troubleshooting
-
-### Common Setup Issues
-
-**Import Errors:**
-- Ensure you're running from the project root directory
-- Verify all dependencies are installed: `pip install -r requirements.txt`
-
-**Server Won't Start:**
-- Check if port 8000 is already in use
-- Verify environment variables are set correctly
-
-**Audio Issues:**
-- For recording: Install `pip install sounddevice`
-- For playback: Ensure audio files are in supported formats (WAV recommended)
-
-**API Quota Issues:**
-- Check your API key validity and usage limits
-- Consider using local models for development/testing
-
-### Debug Resources
-
-1. **Health Endpoint**: Shows which components are working
-2. **Server Logs**: Detailed error messages and processing info
-3. **Test Utilities**: `kb_test.py` for RAG debugging
-4. **Streamlit UI**: Real-time component monitoring
-
-## Learning Objectives
-
-By completing this assignment, you will learn:
-
-1. **Async Python Programming**: Working with async/await patterns
-2. **API Integration**: Multiple third-party service integration
-3. **Modular Design**: Creating reusable, testable components
-4. **RAG Implementation**: Building retrieval-augmented generation systems
-5. **FastAPI Development**: Creating REST APIs for ML applications
-6. **Error Handling**: Robust error handling in production systems
-7. **Audio Processing**: Working with audio data in Python
-
-## Documentation
-
-- **Implementation Guide**: `docs/ASSIGNMENT_GUIDE.md` - Detailed coding instructions
-- **RAG Guide**: `docs/RAG_IMPLEMENTATION_GUIDE.md` - Specific RAG implementation help
-- **API Documentation**: Available at `/docs` when server is running
-
-## Support
-
-If you encounter issues:
-
-1. Check the health endpoint to see component status
-2. Review server logs for detailed error messages  
-3. Use the test utilities to debug individual components
-4. Verify API keys and service configurations
-5. Check the troubleshooting section in documentation
-
-## Getting Help
-
-- Use the provided test utilities (`kb_test.py`, Streamlit UI)
-- Check the comprehensive documentation in the `docs/` folder
-- Review the sample implementations and code comments
-- Test components individually before integration
-
-Good luck with your implementation!
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" width="100%"/>
