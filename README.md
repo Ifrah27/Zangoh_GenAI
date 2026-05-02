@@ -41,6 +41,57 @@
 
 ---
 
+## 🚀 Getting Started
+
+### 📋 Prerequisites
+- **Python 3.10+**
+- **FFmpeg**: Required for audio processing (Whisper/Edge).
+  - *Windows*: `choco install ffmpeg`
+  - *Mac*: `brew install ffmpeg`
+  - *Linux*: `sudo apt install ffmpeg`
+
+### 🔧 Installation
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/Ifrah27/Zangoh_GenAI.git
+   cd Zangoh_GenAI
+   ```
+
+2. **Create Virtual Environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### ⚙️ Configuration
+Create a `.env` file in the root directory (refer to `.env.example`):
+```env
+# API Keys (Choose one or more)
+GROQ_API_KEY=your_groq_key
+GOOGLE_API_KEY=your_gemini_key
+OPENAI_API_KEY=your_openai_key
+```
+
+### 🏃 Running the Application
+The system requires both the Backend and Frontend to be running simultaneously.
+
+1. **Start Backend (FastAPI)**
+   ```bash
+   python -m uvicorn src.api.server:app --host 0.0.0.0 --port 8000 --reload
+   ```
+
+2. **Start Frontend (Streamlit)**
+   ```bash
+   python -m streamlit run streamlit_app.py
+   ```
+
+---
+
 ## 🏗 System Architecture
 
 ### 🌐 High-Level Data Flow
